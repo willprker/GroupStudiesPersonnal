@@ -125,15 +125,17 @@ class PowerSpectrumProcessor:
         
         print("All filtering operations completed.")
     
-    def save_results(self):  # Restored to original name
+
+    def save_results(self, output_dir):  # Restored to original name
         """Saves the filtered outputs to individual text files."""
-        if not os.path.exists(self.output_dir):
-            os.makedirs(self.output_dir)
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
 
         for spacing, output in self.results.items():
-            filename = f"{self.output_dir}/filtered_output_{(spacing*2)/100}.txt"
+            filename = os.path.join(output_dir, f"filtered_output_{(spacing*2)/100}.txt")
             np.savetxt(filename, output)
-        print("Filtered outputs saved successfully.")
+        
+        print(f"Filtered outputs saved successfully in {output_dir}.")
 
     def combine_and_save_to_csv(self):
         """Combines all filtered outputs into a single CSV file."""
